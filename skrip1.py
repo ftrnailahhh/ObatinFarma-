@@ -1,1 +1,2 @@
-print("Hello world")
+def haloSemuanya():
+    print("Hello world")
