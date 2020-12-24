@@ -1,16 +1,6 @@
 <?php 
-// koneksi ke database
-$conn = mysqli_connect("localhost","root", "","database_obatinfarma");
-
-// ambil data tabel obat/query
-$result = mysqli_query($conn, "SELECT * FROM obat");
-
-//ambil data (fetch) mahasiswa dari object result
-
-
-// while($obat = mysqli_fetch_assoc($result)){
-//   var_dump($obat)
-// })
+require 'funct_obat.php';
+$obat = query("SELECT * FROM obat")
 
 ?>
 
@@ -81,7 +71,7 @@ $result = mysqli_query($conn, "SELECT * FROM obat");
             </tr>
           </thead>
           <tbody>
-            <?php while($row = mysqli_fetch_assoc($result)) : ?>
+            <?php foreach($obat as $row) : ?>
             <tr>
               <th scope="row"><?= $row["ID_OBAT"]; ?></th>
               <td><?= $row["NAMA_OBAT"]; ?></td>
@@ -93,7 +83,7 @@ $result = mysqli_query($conn, "SELECT * FROM obat");
               <td><i class="fas fa-trash-alt bg-danger p-2 text-white rounded"></i></td>
               
             </tr>
-            <?php endwhile;?>
+            <?php endforeach;?>
             <!-- <tr>
               <th scope="row">2</th>
               <td>Panadol</td>
