@@ -1,6 +1,11 @@
 <?php 
 require 'funct_obat.php';
-$obat = query("SELECT * FROM obat")
+$obat = query("SELECT * FROM obat");
+
+//tombol cari ditekan
+if(isset($_POST["cari"])){
+  $obat = cari($_POST["keyword"]);
+}
 
 ?>
 
@@ -26,9 +31,9 @@ $obat = query("SELECT * FROM obat")
         <a class="navbar-brand" href="#">Halaman Admin | <b>Obatin Farma</b> </a>
        
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
+          <form class="d-flex" action="" method="POST">
+            <input class="form-control me-2" type="search" name="keyword" placeholder="Ketik nama obat yang ingin dicari!" aria-label="Search" autofocus autocomplete="off" size="40">
+            <button class="btn btn-outline-success" type="submit" name="cari">Search</button>
           </form>
         </div>
       </div>
@@ -79,8 +84,9 @@ $obat = query("SELECT * FROM obat")
               <td><?= $row["HARGA_OBAT"]; ?></td>
               <td><img src="gambar_obat/<?= $row["GAMBAR"]; ?>" alt="obat" width="100"></td>
               
-              <td><i class="fas fa-edit bg-success p-2 text-white rounded"></i></td>
-              <td><i class="fas fa-trash-alt bg-danger p-2 text-white rounded"></i></td>
+              <td><a href="ubah_obat.php?id=<?= $row["ID_OBAT"]; ?>"><i class="fas fa-edit bg-success p-2 text-white rounded"></i></a></td>
+
+              <td><a href="hapus_obat.php?id=<?= $row["ID_OBAT"]; ?>" onclick="return confirm('Apakah anda yakin akan menghapus data ini?');"><i class="fas fa-trash-alt bg-danger p-2 text-white rounded"></i></a></td>
               
             </tr>
             <?php endforeach;?>

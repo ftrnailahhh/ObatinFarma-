@@ -1,13 +1,19 @@
 <?php 
 require 'funct_obat.php';
 
+//ambil data di url
+$id = $_GET["id"];
+
+//query data
+$dataObat = query("SELECT * FROM obat WHERE ID_OBAT = $id ")[0];
+
 // cek tombol submit
 if(isset($_POST["submit"])){
   //cek
-  if(tambah($_POST) > 0 ){
+  if(ubah($_POST) > 0 ){
     echo "
       <script>
-        alert('Data Obat Telah Berhasil Ditambahkan!');
+        alert('Data Obat Telah Berhasil Diubah!');
         document.location.href = 'daftar_obat.php'
       </script>
     ";
@@ -15,7 +21,7 @@ if(isset($_POST["submit"])){
   }else{
     echo "
     <script>
-      alert('Sayang Sekali, Data Obat Gagal Ditambahkan!');
+      alert('Sayang Sekali, Data Obat Gagal Diubah!');
       document.location.href = 'daftar_obat.php'
     </script>
   ";
@@ -67,50 +73,52 @@ if(isset($_POST["submit"])){
 
       </div>
       <div class="col-md-10 p-5 pt-20">
-        <h3><i class="fas fa-capsules me-2 "></i>TAMBAH STOK OBAT</h3><hr>
+        <h3><i class="fas fa-capsules me-2 "></i>UBAH DATA OBAT</h3><hr>
 
         <form action="" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="gambarLama" value="<?= $dataObat["GAMBAR"]; ?>">
             <div class="row mb-3">
               <label for="id" class="col-sm-2 col-form-label">ID Obat</label>
               <div class="col-sm-10">
-                <input type="number" name="id" class="form-control" id="id" required>
+                <input type="number" name="id" class="form-control" id="id" required value="<?= $dataObat["ID_OBAT"]; ?>">
               </div>
             </div>
 
             <div class="row mb-3">
               <label for="namaObat" class="col-sm-2 col-form-label">Nama Obat</label>
               <div class="col-sm-10">
-                <input type="text" name="namaObat" class="form-control" id="namaObat" required>
+                <input type="text" name="namaObat" class="form-control" id="namaObat" required value="<?= $dataObat["NAMA_OBAT"]; ?>">
               </div>
             </div>
 
             <div class="row mb-3">
                 <label for="stok" class="col-sm-2 col-form-label">Stok</label>
                 <div class="col-sm-10">
-                  <input type="number" name="stok" class="form-control" id="stok" required>
+                  <input type="number" name="stok" class="form-control" id="stok" required value="<?= $dataObat["STOK"]; ?>">
                 </div>
               </div>
 
               <div class="row mb-3">
                 <label for="hargaObat" class="col-sm-2 col-form-label">Harga Obat</label>
                 <div class="col-sm-10">
-                  <input type="number" name="hargaObat" class="form-control" id="hargaObat" required>
+                  <input type="number" name="hargaObat" class="form-control" id="hargaObat" required value="<?= $dataObat["HARGA_OBAT"]; ?>">
                 </div>
               </div>
 
               <!-- <div class="row mb-3">
                 <label for="gambar" class="col-sm-2 col-form-label">Gambar Obat</label>
                 <div class="col-sm-10">
-                  <input type="text" name="gambar" class="form-control" id="gambar">
+                  <input type="text" name="gambar" class="form-control" id="gambar" value="<?= $dataObat["GAMBAR"]; ?>">
                 </div>
               </div> -->
 
               <div class="mb-3">
-                <label for="gambar" class="form-label">Gambar Obat</label>
-                <input class="form-control" type="file" name="gambar" id="gambar">
+                <label for="gambar" class="form-label">Gambar</label><br>
+                <img src="gambar_obat/<?= $dataObat["GAMBAR"]; ?>" width="150"  alt=""><br>
+                <input class="form-control" type="file" name="gambar" id="gambar" >
               </div>
            
-            <button type="submit" name="submit" class="btn btn-primary">Tambah</button>
+            <button type="submit" name="submit" class="btn btn-primary">Ubah</button>
           </form>
       </div>
     </div>
